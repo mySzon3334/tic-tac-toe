@@ -1,5 +1,6 @@
 import socket
 import config as c
+import time
 
 board_size = 3
 
@@ -18,6 +19,7 @@ def host():
     abc = ['A', 'B', 'C']
     inGame = False
     exit = False
+    menu = False
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((c.ip, c.port))
     while not exit:
@@ -53,7 +55,16 @@ def host():
                     print('You Lost')
                     print_board(board)
                     inGame = False
-            # while after game
+            while menu:
+                print("Game Over")
+                print('Do you want to play again?')
+                inp = input('Type yes or no -> ')
+                if inp == 'Yes':
+                    pass
+                elif inp == 'No':
+                    print('Ok, disconnecting and closing game in 5 seconds')
+                    menu = False
+
     try:
         # noinspection PyUnboundLocalVariable
         conn.close()
