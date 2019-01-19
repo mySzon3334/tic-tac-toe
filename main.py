@@ -32,8 +32,10 @@ def host():
             print('Connection Error: Error occurred while trying to accept incoming connection, retrying')
         while inGame:
             print_board(board)
-            inp0 = input('Row -> ')
-            inp1 = input('Column -> ')
+            # inp0 = input('Row -> ')
+            # inp1 = input('Column -> ')
+            inp0 = gui.inp[0]
+            inp1 = gui.inp[1]
             if inp0 == 'exit':
                 # noinspection PyUnboundLocalVariable
                 conn.sendall('Info: host quit the game, disconnecting'.encode())
@@ -103,8 +105,10 @@ def player():
                 inGame = False
             else:
                 print_board(board)
-                inp0 = input('Row -> ')
-                inp1 = input('Column -> ')
+                # inp0 = input('Row -> ')
+                # inp1 = input('Column -> ')
+                inp0 = gui.inp[0]
+                inp1 = gui.inp[1]
                 if inp0 == "exit":
                     s.sendall('Info: player quit the game, disconnecting'.encode())
                     inGame = False
@@ -165,6 +169,7 @@ def board_decode(string):
                     temp = []
     except:
         print(string)
+        board = []
     print(board)
     return board
 
@@ -191,5 +196,5 @@ def check_board(board):
 # board_decode(board_encode([['x', 0, 0], ['o', 'x', 0], ['o', 'o', 'o']]))
 
 
-#host()
+# host()
 player()
