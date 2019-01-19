@@ -1,6 +1,7 @@
 import socket
 import config as c
 import time
+import gui
 
 board_size = 3
 
@@ -120,8 +121,9 @@ def player():
 
 
 def print_board(board):
+    gui.gameWindow(board, 0)
     """for p in range(0, board_size):
-        print(board[p])"""
+        print(board[p])
     for p in range(0, board_size):
         for p1 in range(0, board_size):
             if board[p][p1] == '0':
@@ -132,7 +134,7 @@ def print_board(board):
     print('2.', board[1][0], '|', board[1][1], '|', board[1][2])
     print('   __|___|__')
     print('3.', board[2][0], '|', board[2][1], '|', board[2][2])
-    print('     |   |  ')
+    print('     |   |  ')"""
 
 
 def board_encode(board):
@@ -189,5 +191,5 @@ def check_board(board):
 # board_decode(board_encode([['x', 0, 0], ['o', 'x', 0], ['o', 'o', 'o']]))
 
 
-host()
-#player()
+#host()
+player()
