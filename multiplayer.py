@@ -40,7 +40,7 @@ def main(debug_mode=0):
                     netobj.sendall('22player left the game'.encode())
                     in_game = False
                     game_exit = True
-                board[int(inp[0]) - 1][int(abc.index(inp[1]))] = side
+                board[int(inp[0]) - 1][int(inp[1])] = side
                 in_game = check_board(board, side)
                 netobj.sendall(encode_data(board))
             # game_over_screen()
