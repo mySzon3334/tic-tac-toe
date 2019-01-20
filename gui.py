@@ -1,15 +1,17 @@
 from tkinter import *
 from tkinter import ttk
 
-#root = Tk()
+# root = Tk()
 inp = ["", ""]
-inpRow = root
-inpCol = root
+inpRow = 0
+inpCol = 0
+temp_board = []
 
 
 def submit_inp(event):
     # print('abc')
     global inp
+    if temp_board[inp]
     inp[0] = str(inpRow.get())
     inp[1] = str(inpCol.get())
     print(inp)
@@ -17,8 +19,9 @@ def submit_inp(event):
 
 def gameWindow(board, size):
     root = Tk()
-    global inpCol, inpRow
-    #board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
+    global inpCol, inpRow, temp_board
+    board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
+    temp_board = board
     text1 = ['1 ', board[0][0], '|', board[0][1], '|', board[0][2]]
     text1 = ' '.join(text1)
     text2 = ['2 ', board[1][0], '|', board[1][1], '|', board[1][2]]
@@ -48,5 +51,4 @@ def gameWindow(board, size):
     subButton.pack()
     root.mainloop()
 
-
-#gameWindow(0, 0)
+gameWindow(0, 0)
