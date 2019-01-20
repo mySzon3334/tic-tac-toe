@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
-root = Tk()
+#root = Tk()
 inp = ["", ""]
 inpRow = root
 inpCol = root
@@ -16,8 +16,9 @@ def submit_inp(event):
 
 
 def gameWindow(board, size):
+    root = Tk()
     global inpCol, inpRow
-    board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
+    #board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
     text1 = ['1 ', board[0][0], '|', board[0][1], '|', board[0][2]]
     text1 = ' '.join(text1)
     text2 = ['2 ', board[1][0], '|', board[1][1], '|', board[1][2]]
@@ -48,4 +49,4 @@ def gameWindow(board, size):
     root.mainloop()
 
 
-gameWindow(0, 0)
+#gameWindow(0, 0)

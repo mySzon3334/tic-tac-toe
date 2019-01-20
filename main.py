@@ -46,6 +46,7 @@ def host():
                 if check_board(board) == 'x':
                     print('You Win')
                     inGame = False
+                    menu = True
                 buff = board
                 conn.sendall(board_encode(board))
                 data = conn.recv(3072)
@@ -58,15 +59,16 @@ def host():
                     print('You Lost')
                     print_board(board)
                     inGame = False
-            while menu:
-                print("Game Over")
-                print('Do you want to play again?')
-                inp = input('Type yes or no -> ')
-                if inp == 'Yes':
-                    pass
-                elif inp == 'No':
-                    print('Ok, disconnecting and closing game in 5 seconds')
-                    menu = False
+                    menu = True
+        while menu:
+            print("Game Over")
+            print('Do you want to play again?')
+            inp = input('Type yes or no -> ')
+            if inp == 'Yes':
+                pass
+            elif inp == 'No':
+                print('Ok, disconnecting and closing game in 5 seconds')
+                menu = False
 
     try:
         # noinspection PyUnboundLocalVariable
@@ -196,5 +198,5 @@ def check_board(board):
 # board_decode(board_encode([['x', 0, 0], ['o', 'x', 0], ['o', 'o', 'o']]))
 
 
-# host()
-player()
+host()
+#player()
