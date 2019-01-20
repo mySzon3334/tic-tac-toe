@@ -73,6 +73,7 @@ def wait_for_inp(inp_type, board):
                         inp1 = 2
                     if board[inp0][inp1] == '0':
                         done = True
+                        print(inp0, inp1, a)
                         return [inp0, inp1]
 
 
