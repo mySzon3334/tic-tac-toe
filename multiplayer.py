@@ -1,15 +1,15 @@
 import socket
 from functions import *
 
-debug = 0
+debug = 1
 
 
 def main(debug_mode=0):
     if debug_mode == 1:
         global debug
         debug = 1
-    type = 0
-    ip = '192.168.1.13'
+    type = 1
+    ip = '25.50.83.172'
     port = 50001
     game_exit = False
     abc = ['A', 'B', 'C']
@@ -52,9 +52,13 @@ def connection_setup(type, ip, port):
         conn, addr = s.accept()
         if debug == 1:
             print('Accepted connection from', addr)
+        conn.sendall('25000000000'.encode())
         return conn
     elif type == 1:
         s.connect((ip, port))
         if debug == 1:
             print('Connected with host on', ip, port)
         return s
+
+
+main()

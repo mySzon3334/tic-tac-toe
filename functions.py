@@ -8,6 +8,8 @@ def decode_data(string):
             print('Error occurred:', msg)
             return -1
         elif string[0] == '2' and string[1] == '5':
+            string.remove('2')
+            string.remove('5')
             temp = []
             board = []
             for p in range(0, board_size * board_size):
