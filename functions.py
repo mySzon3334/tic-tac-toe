@@ -1,5 +1,7 @@
 import pygame
+import visuals
 
+a = int(visuals.display_size / 3)
 pygame.init()
 
 
@@ -57,7 +59,20 @@ def wait_for_inp(inp_type, board):
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
                     print(pos)
-                    done = True
+                    if pos[0] <= a:
+                        inp0 = 0
+                    elif a < pos[0] <= 2 * a:
+                        inp0 = 1
+                    else:
+                        inp0 = 2
+                    if pos[1] <= a:
+                        inp1 = 0
+                    elif a < pos[1] <= 2 * a:
+                        inp1 = 1
+                    else:
+                        inp1 = 2
+                    if board[inp0][inp1] == '0':
+                        done = True
 
 
 def show_board(board):
