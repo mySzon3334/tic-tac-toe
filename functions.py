@@ -1,7 +1,9 @@
 import pygame
-import visuals
 
-a = int(visuals.display_size / 3)
+# import visuals
+
+# a = int(visuals.display_size / 3
+a = 132
 pygame.init()
 
 
@@ -71,7 +73,8 @@ def wait_for_inp(inp_type, board):
                         inp1 = 1
                     else:
                         inp1 = 2
-                    if board[inp0][inp1] == '0':
+                    print(inp0, inp1)
+                    if board[inp1][inp0] == '0':
                         done = True
                         print(inp0, inp1, a)
                         return [inp0, inp1]

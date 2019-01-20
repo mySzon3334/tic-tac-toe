@@ -1,5 +1,6 @@
 import pygame as py
 import settings as s
+import functions as f
 
 py.init()
 display_size = 400
@@ -11,7 +12,7 @@ gameDisplay.fill(s.classic_theme.background_color)
 
 
 def game_window(board):
-    # board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
+    #board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
     a = (display_size - 2) / 3
     x = a / 2
     y = a / 2
@@ -57,3 +58,7 @@ def message_display(text, size, x=0, y=0):
     TextSurf, TextRect = text_objects(text, largeText)
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
+
+
+#game_window([])
+#f.wait_for_inp(1, [[0, 0, 0], [0, 0, 0], [0, 0, 0]])
