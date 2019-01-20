@@ -28,7 +28,8 @@ def main(debug_mode=0):
                     in_game = False
                 else:
                     board = decoded_data
-                # check_game_state()
+                show_board(board)
+                in_game = check_board(board, side)
                 #
                 inp = wait_for_inp(0, board)
                 if inp[0] == 'exit':
@@ -36,6 +37,7 @@ def main(debug_mode=0):
                     in_game = False
                     game_exit = True
                 board[int(inp[0]) - 1][int(abc.index(inp[1]))] = side
+                in_game = check_board(board, side)
                 netobj.sendall(encode_data(board))
             # game_over_screen()
 

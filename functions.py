@@ -42,7 +42,7 @@ def wait_for_inp(inp_type, board):
             inp1 = input('Column -> ')
             if inp0 == 'exit':
                 return -1
-            elif board[inp0][abc.index(inp1)] == 0:
+            elif board[int(inp0) - 1][int(abc.index(inp1))] == '0':
                 # done = True
                 return [inp0, inp1]
 
@@ -62,3 +62,32 @@ def show_board(board):
     print('   __|___|__')
     print('3.', board[2][0], '|', board[2][1], '|', board[2][2])
     print('     |   |  ')
+
+
+def check_board_state(board):
+    for p in range(0, 2):
+        if p == 0:
+            f = 'x'
+        else:
+            f = 'o'
+        for p1 in range(0, 3):
+            if board[p1][0] == f and board[p1][1] == f and board[p1][2] == f:
+                return f
+        for p1 in range(0, 3):
+            if board[0][p1] == f and board[1][p1] == f and board[2][p1] == f:
+                return f
+        if board[0][0] == f and board[1][1] == f and board[2][2] == f:
+            return f
+        if board[0][2] == f and board[1][1] == f and board[2][0] == f:
+            return f
+    return -1
+
+
+def check_board(board, side):
+    if check_board_state(board) == side:
+        print('You Won')
+        return False
+    elif check_board_state(board) != side and check_board_state(board) != -1:
+        print('You Lost')
+        return False
+
