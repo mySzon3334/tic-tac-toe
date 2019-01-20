@@ -1,3 +1,8 @@
+import pygame
+
+pygame.init()
+
+
 def decode_data(string):
     board_size = 3
     string = string.decode()
@@ -45,6 +50,14 @@ def wait_for_inp(inp_type, board):
             elif board[int(inp0) - 1][int(abc.index(inp1))] == '0':
                 # done = True
                 return [inp0, inp1]
+    elif inp_type == 1:
+        done = False
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP:
+                    pos = pygame.mouse.get_pos()
+                    print(pos)
+                    done = True
 
 
 def show_board(board):
@@ -90,4 +103,3 @@ def check_board(board, side):
     elif check_board_state(board) != side and check_board_state(board) != -1:
         print('You Lost')
         return False
-

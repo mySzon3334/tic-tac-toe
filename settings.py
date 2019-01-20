@@ -19,5 +19,5 @@ classic_theme = Theme(white, black, red, blue, black)
 
 def settings_menu():
     exit = False
-    #while not exit:
-        #draw_settings_menu
+    # while not exit:
+    # draw_settings_menu

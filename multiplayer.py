@@ -1,5 +1,6 @@
 import socket
 from functions import *
+import visuals as v
 
 debug = 1
 
@@ -8,8 +9,8 @@ def main(debug_mode=0):
     if debug_mode == 1:
         global debug
         debug = 1
-    type = 1
-    ip = '25.50.83.172'
+    type = 0
+    ip = '192.168.1.33'
     port = 50001
     game_exit = False
     abc = ['A', 'B', 'C']
@@ -18,8 +19,11 @@ def main(debug_mode=0):
         netobj = connection_setup(type, ip, port)
         in_game = True
         game_session = True
+
         while game_session:
+
             while in_game:
+                # data receiving and decoding
                 data = netobj.recv(1024)
                 decoded_data = decode_data(data)
                 if decoded_data == -1:
@@ -28,10 +32,10 @@ def main(debug_mode=0):
                     in_game = False
                 else:
                     board = decoded_data
-                show_board(board)
+
+                v.game_window(board)
                 in_game = check_board(board, side)
-                #
-                inp = wait_for_inp(0, board)
+                inp = wait_for_inp(1, board)
                 if inp[0] == 'exit':
                     netobj.sendall('22player left the game'.encode())
                     in_game = False
