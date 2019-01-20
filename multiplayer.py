@@ -14,7 +14,7 @@ def main(debug_mode=0):
     port = 50001
     game_exit = False
     abc = ['A', 'B', 'C']
-    side = 'o'
+    side = 'x'
     while not game_exit:
         netobj = connection_setup(type, ip, port)
         in_game = True
@@ -23,6 +23,7 @@ def main(debug_mode=0):
         while game_session:
 
             while in_game:
+                print('main loop start')
                 # data receiving and decoding
                 data = netobj.recv(1024)
                 decoded_data = decode_data(data)
@@ -35,6 +36,7 @@ def main(debug_mode=0):
 
                 v.game_window(board)
                 in_game = check_board(board, side)
+                print('w8 4 inp')
                 inp = wait_for_inp(1, board)
                 if inp[0] == 'exit':
                     netobj.sendall('22player left the game'.encode())
@@ -43,6 +45,7 @@ def main(debug_mode=0):
                 board[int(inp[0])][int(inp[1])] = side
                 in_game = check_board(board, side)
                 netobj.sendall(encode_data(board))
+                print('in game', in_game)
             # game_over_screen()
 
 

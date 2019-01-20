@@ -120,3 +120,4 @@ def check_board(board, side):
     elif check_board_state(board) != side and check_board_state(board) != -1:
         print('You Lost')
         return False
+    return True
