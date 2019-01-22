@@ -15,6 +15,8 @@
           <option value="N806" />
           <option value="N802" />
           <option value="N803" />
+          <option value="N801" />
+          <option value="N813" />
         </list>
       </option>
     </inspection_tool>
@@ -30,6 +32,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="int.blit" />
+          <option value="PyQt5.QtWidgets.clicked.connect" />
         </list>
       </option>
     </inspection_tool>

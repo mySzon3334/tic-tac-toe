@@ -1,54 +1,133 @@
-from tkinter import *
-from tkinter import ttk
+import sys
+from PyQt5 import QtCore, QtWidgets
 
-# root = Tk()
-inp = ["", ""]
-inpRow = 0
-inpCol = 0
-temp_board = []
+launch = ''  # sp_game_easy, sp_game_med, sp_game_hard lmp_game, mp_game
 
 
-def submit_inp(event):
-    # print('abc')
-    global inp
-    if temp_board[inp]
-    inp[0] = str(inpRow.get())
-    inp[1] = str(inpCol.get())
-    print(inp)
+class MainWindow(QtWidgets.QWidget):
+    switch_window = QtCore.pyqtSignal(str)
+
+    def __init__(self):
+        QtWidgets.QWidget.__init__(self)
+        self.setWindowTitle('Main Menu Window')
+
+        layout = QtWidgets.QGridLayout()
+
+        self.line_edit = QtWidgets.QLineEdit()
+        layout.addWidget(self.line_edit)
+
+        self.button = QtWidgets.QPushButton('Switch Window')
+        self.button.clicked.connect(self.switch)
+        layout.addWidget(self.button)
+
+        self.setLayout(layout)
+
+    def switch(self):
+        print(self.line_edit.text())
+        self.switch_window.emit(self.line_edit.text())
 
 
-def gameWindow(board, size):
-    root = Tk()
-    global inpCol, inpRow, temp_board
-    board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
-    temp_board = board
-    text1 = ['1 ', board[0][0], '|', board[0][1], '|', board[0][2]]
-    text1 = ' '.join(text1)
-    text2 = ['2 ', board[1][0], '|', board[1][1], '|', board[1][2]]
-    text2 = ' '.join(text2)
-    text3 = ['3 ', board[2][0], '|', board[2][1], '|', board[2][2]]
-    text3 = ' '.join(text3)
-    """Label(root, text=' 0  A   B   C').grid(row=0, pady=0)
-    Label(root, text=text1).grid(row=1, pady=0)
-    Label(root, text='    __|__|___').grid(row=2, pady=0)
-    Label(root, text=text2).grid(row=3, pady=0)
-    Label(root, text='    __|__|___').grid(row=4, pady=0)
-    Label(root, text=text3).grid(row=5, pady=0)
-    Label(root, text='      |   |   ').grid(row=6, pady=0)"""
-    Label(root, text='  0  A   B   C').pack()
-    Label(root, text=text1).pack()
-    Label(root, text='      __|__|___').pack()
-    Label(root, text=text2).pack()
-    Label(root, text='      __|__|___').pack()
-    Label(root, text=text3).pack()
-    Label(root, text='       |   |   ').pack()
-    inpRow = Entry(root)
-    inpRow.pack()
-    inpCol = Entry(root)
-    inpCol.pack()
-    subButton = Button(root, text='submit')
-    subButton.bind("<Button-1>", submit_inp)
-    subButton.pack()
-    root.mainloop()
+class MultiplayerSettingsWindow(QtWidgets.QWidget):
+    back_to_mainmenu = QtCore.pyqtSignal()
 
-gameWindow(0, 0)
+    def __init__(self, text):
+        QtWidgets.QWidget.__init__(self)
+        self.setWindowTitle('Multiplayer connection settings')
+
+        layout = QtWidgets.QGridLayout()
+
+        self.label = QtWidgets.QLabel("test")
+        layout.addWidget(self.label)
+
+        self.button = QtWidgets.QPushButton('Close')
+        self.button.clicked.connect(self.close)
+
+        layout.addWidget(self.button)
+
+        self.setLayout(layout)
+
+
+class MainMenuWindow(QtWidgets.QWidget):
+    sp_window_switch = QtCore.pyqtSignal()
+    lmp_window_switch = QtCore.pyqtSignal()
+    mp_window_switch = QtCore.pyqtSignal()
+    wwmp_window_switch = QtCore.pyqtSignal()
+    sett_window_switch = QtCore.pyqtSignal()
+
+    def __init__(self):
+        QtWidgets.QWidget.__init__(self)
+        self.setWindowTitle('Tic Tac Toe')
+
+        layout = QtWidgets.QGridLayout()
+
+        self.sp_button = QtWidgets.QPushButton('Singleplayer vs. CPU (will be added in future updates)')
+        self.lmp_button = QtWidgets.QPushButton('Local Multiplayer (will be added in future updates)')
+        self.wlan_mp_button = QtWidgets.QPushButton('Multiplayer over Wi-Fi')
+        self.wwmp_button = QtWidgets.QPushButton('Multiplayer over Internet')
+        self.sett_button = QtWidgets.QPushButton('Settings')
+
+        self.sp_button.clicked.connect(self.sp_window_switch.emit)
+        self.lmp_button.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        self.wlan_mp_button.clicked.connect(self.mp_window_switch.emit)
+        self.wwmp_button.clicked.connect(self.wwmp_window_switch.emit)
+        self.sett_button.clicked.connect(self.sett_window_switch.emit)
+
+        layout.addWidget(self.sp_button)
+        layout.addWidget(self.lmp_button)
+        layout.addWidget(self.wlan_mp_button)
+        layout.addWidget(self.wwmp_button)
+        layout.addWidget(self.sett_button)
+
+        self.setLayout(layout)
+    """
+    def close(self):
+        QtCore.QCoreApplication.instance().quit
+
+    def test(self):
+        self.switch_window2.emit()"""
+
+
+# noinspection PyAttributeOutsideInit
+class Controller:
+    # QtCore.QCoreApplication.instance().quit
+
+    def __init__(self):
+        pass
+
+    def show_main(self):
+        self.main = MainMenuWindow()
+
+        self.main.sp_window_switch.connect(self.show_sp_window)
+        # self.main.lmp_window_switch.connect(self.main.QtCore.QCoreApplication.instance().quit)
+        self.main.mp_window_switch.connect(self.show_mp_window)
+        # self.main.wwmp_window_switch.connect(self.show_main)
+        # self.main.sett_window_switch.connect(self.show_main)
+
+        self.main.show()
+
+    def show_sp_window(self):
+        pass
+        # QtCore.QCoreApplication.instance().quit
+
+    def show_lmp_window(self):
+        pass
+
+    def show_mp_window(self):
+        global launch
+        launch = 'mp_game'
+        self.main.close()
+        print('launch set')
+        # self.mp_window = MultiplayerWindow()
+
+
+def main():
+    app = QtWidgets.QApplication(sys.argv)
+    # app.setQuitOnLastWindowClosed(False)
+    controller = Controller()
+    controller.show_main()
+    app.exec_()
+
+
+if __name__ == '__main__':
+    main()
+    print('koniec')

@@ -9,12 +9,12 @@ def main(debug_mode=0):
     if debug_mode == 1:
         global debug
         debug = 1
-    type = 1
+    type = 0
     ip = '192.168.1.33'
     port = 50001
     game_exit = False
     abc = ['A', 'B', 'C']
-    side = 'x'
+    side = 'o'
     while not game_exit:
         netobj = connection_setup(type, ip, port)
         in_game = True
