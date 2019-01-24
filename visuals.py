@@ -6,13 +6,18 @@ py.init()
 display_size = 400
 line_thickness = 5
 
-gameDisplay = py.display.set_mode((display_size, display_size))
-py.display.set_caption("Tik Tac Toe")
-gameDisplay.fill(s.classic_theme.background_color)
+gameDisplay = py.Surface
+
+
+def init():
+    global gameDisplay
+    gameDisplay = py.display.set_mode((display_size, display_size))
+    py.display.set_caption("Tik Tac Toe")
+    gameDisplay.fill(s.classic_theme.background_color)
 
 
 def game_window(board):
-    #board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
+    # board = [['x', 'x', ' '], ['o', 'x', 'o'], ['x', ' ', 'x']]
     a = (display_size - 2) / 3
     x = a / 2
     y = a / 2
@@ -59,6 +64,5 @@ def message_display(text, size, x=0, y=0):
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
 
-
-#game_window([])
-#f.wait_for_inp(1, [[0, 0, 0], [0, 0, 0], [0, 0, 0]])
+# game_window([])
+# f.wait_for_inp(1, [[0, 0, 0], [0, 0, 0], [0, 0, 0]])

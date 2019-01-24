@@ -33,6 +33,7 @@
         <list>
           <option value="int.blit" />
           <option value="PyQt5.QtWidgets.clicked.connect" />
+          <option value="PyQt5.QtWidgets.toggled.connect" />
         </list>
       </option>
     </inspection_tool>
