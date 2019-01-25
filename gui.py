@@ -35,7 +35,7 @@ class PopUpWindow(QtWidgets.QWidget):
         self.setLayout(layout)
 
 
-# noinspection PyArgumentList
+# noinspection PyArgumentList,PyMethodMayBeStatic
 class HelpWindow(QtWidgets.QWidget):
 
     def __init__(self):
@@ -320,17 +320,28 @@ class Controller:
             p.close()
 
 
-def main(open_option=1):
+def main(open_option=0):
     app = QtWidgets.QApplication(sys.argv)
     # app.setQuitOnLastWindowClosed(False)
     controller = Controller()
     if open_option == 0:
-        controller.show_popup()
-    elif open_option == 1:
         controller.show_main()
+    elif open_option == 1:
+        controller.show_go_window()
     elif open_option == 2:
         controller.show_mp_window()
     app.exec_()
+
+
+# noinspection SpellCheckingInspection
+def set_aftergametext(text):
+    global after_game_text
+    after_game_text = text
+
+
+def clear_launch():
+    global launch
+    launch = ''
 
 
 if __name__ == '__main__':

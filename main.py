@@ -1,5 +1,6 @@
 import multiplayer
 import gui
+import visuals
 
 
 def main():
@@ -10,6 +11,8 @@ def main():
         pass
         # singleplayer.main()
     elif game == 'mp_game':
+        gui.clear_launch()
+        print(game_settings)
         multiplayer.main(game_settings, debug_mode=0)
 
 

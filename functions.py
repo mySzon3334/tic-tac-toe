@@ -119,8 +119,10 @@ def check_board_state(board):
 def check_board(board, side):
     if check_board_state(board) == side:
         print('You Won')
-        return False
+        return 2
     elif check_board_state(board) != side and check_board_state(board) != -1:
         print('You Lost')
-        return False
-    return True
+        return 3
+    elif '0' not in board[0] and '0' not in board[1] and '0' not in board[2]:
+        return 1
+    return 0
