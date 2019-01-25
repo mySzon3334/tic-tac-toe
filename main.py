@@ -13,4 +13,5 @@ def main():
         multiplayer.main(game_settings, debug_mode=0)
 
 
-main()
+if __name__ == '__main__':
+    main()

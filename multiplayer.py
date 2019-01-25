@@ -1,6 +1,7 @@
 import socket
 from functions import *
 import visuals as v
+import gui as g
 
 debug = 1
 
@@ -18,7 +19,7 @@ def main(conn_settings, debug_mode=0):
     port = conn_settings[2]
 
     game_exit = False
-    abc = ['A', 'B', 'C']
+    # abc = ['A', 'B', 'C']
     side = 'o'
     while not game_exit:
         netobj = connection_setup(type, ip, port)
@@ -51,7 +52,7 @@ def main(conn_settings, debug_mode=0):
                 in_game = check_board(board, side)
                 netobj.sendall(encode_data(board))
                 print('in game', in_game)
-            # game_over_screen()
+            g.main(1)
 
 
 def connection_setup(type, ip, port):
