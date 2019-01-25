@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtWidgets
 
 launch = ''  # sp_game, lmp_game, mp_game
 launch_settings = []
+after_game_text = 'test-abc'
 
 
 # noinspection PyArgumentList
@@ -25,6 +26,38 @@ class PopUpWindow(QtWidgets.QWidget):
         layout.addWidget(self.button, 2, 0, 1, 1, QtCore.Qt.AlignCenter)
 
         self.setLayout(layout)
+
+
+# noinspection PyArgumentList,PyMethodMayBeStatic
+class GameOverWindow(QtWidgets.QWidget):
+    back_to_mm = QtCore.pyqtSignal()
+    close_all = QtCore.pyqtSignal()
+
+    def __init__(self):
+        QtWidgets.QWidget.__init__(self)
+        self.setWindowTitle('Game Over')
+        self.setGeometry(400, 250, 150, 100)
+
+        layout = QtWidgets.QGridLayout()
+
+        self.label = QtWidgets.QLabel(after_game_text)
+
+        self.back_button = QtWidgets.QPushButton('Back to Main Menu')
+        self.retry_button = QtWidgets.QPushButton('Play Again')
+
+        self.back_button.clicked.connect(self.back_to_mm.emit)
+        self.retry_button.clicked.connect(self.retry)
+
+        layout.addWidget(self.label, 0, 0, 1, 1, QtCore.Qt.AlignCenter)
+        layout.addWidget(self.back_button, 1, 0, 1, 1)
+        layout.addWidget(self.retry_button, 2, 0, 1, 1)
+
+        self.setLayout(layout)
+
+    def retry(self):
+        global launch
+        launch = 'mp_game'
+        self.close_all.emit()
 
 
 # noinspection PyArgumentList
@@ -86,7 +119,7 @@ class MultiplayerSettingsWindow(QtWidgets.QWidget):
 
     def send_data(self):
         global launch, launch_settings
-        conn_list = [self.clicked, self.ip_input.text(), self.port_input.text()]
+        conn_list = [self.clicked, self.ip_input.text(), int(self.port_input.text())]
         print('conn', conn_list)
         launch = 'mp_game'
         launch_settings = conn_list
@@ -104,6 +137,7 @@ class MainMenuWindow(QtWidgets.QWidget):
     def __init__(self):
         QtWidgets.QWidget.__init__(self)
         self.setWindowTitle('Tic Tac Toe')
+        self.setGeometry(400, 250, 300, 300)
 
         layout = QtWidgets.QGridLayout()
 
@@ -174,6 +208,13 @@ class Controller:
         self.open_windows.remove(self.main)
         self.mp_sett.show()
 
+    def show_go_window(self):
+        self.g_over = GameOverWindow()
+        self.open_windows.append(self.g_over)
+        self.g_over.back_to_mm.connect(self.show_main)
+        self.g_over.close_all.connect(self.close_all_windows)
+        self.g_over.show()
+
     def show_popup(self):
         self.pop_up = PopUpWindow()
         self.open_windows.append(self.pop_up)
@@ -188,7 +229,7 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     # app.setQuitOnLastWindowClosed(False)
     controller = Controller()
-    controller.show_main()
+    controller.show_go_window()
     app.exec_()
 
 

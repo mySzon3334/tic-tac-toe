@@ -5,13 +5,18 @@ import visuals as v
 debug = 1
 
 
-def main(debug_mode=0):
+def main(conn_settings, debug_mode=0):
     if debug_mode == 1:
         global debug
         debug = 1
-    type = 0
+    """type = 0
     ip = '192.168.1.33'
-    port = 50001
+    port = 50001"""
+
+    type = conn_settings[0]
+    ip = conn_settings[1]
+    port = conn_settings[2]
+
     game_exit = False
     abc = ['A', 'B', 'C']
     side = 'o'
@@ -68,6 +73,3 @@ def connection_setup(type, ip, port):
         if debug == 1:
             print('Connected with host on', ip, port)
         return s
-
-
-main()

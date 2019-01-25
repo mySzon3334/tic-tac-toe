@@ -1,11 +1,16 @@
 import multiplayer
+import gui
 
 
 def main():
-    game = 1
-    # game = selectScreen()   # 0 = vs cpu / local    1 = multiplayer over wlan
-    if game == 0:
+    gui.main()
+    game = gui.launch
+    game_settings = gui.launch_settings
+    if game == 'sp_game':
         pass
         # singleplayer.main()
-    elif game == 1:
-        multiplayer.main()
+    elif game == 'mp_game':
+        multiplayer.main(game_settings, debug_mode=0)
+
+
+main()
