@@ -2,6 +2,7 @@ import socket
 from functions import *
 import visuals as v
 import gui as g
+import pygame
 
 debug = 1
 side = ''
@@ -29,7 +30,10 @@ def main(conn_settings, debug_mode=0):
         game_session = True
 
         while game_session:
+            pygame.init()
             v.init()
+            if type == 0:
+                netobj.sendall('25000000000'.encode())
             while in_game:
                 print('main loop start')
                 # data receiving and decoding
@@ -42,11 +46,12 @@ def main(conn_settings, debug_mode=0):
                 else:
                     board = decoded_data
 
-                v.game_window(board)
+                v.game_window(board, 'Your turn')
                 result = check_board(board, side)
                 if result != 0:
                     in_game = False
                     break
+
                 print('w8 4 inp')
                 inp = wait_for_inp(1, board)
                 if inp[0] == 'exit':
@@ -54,15 +59,18 @@ def main(conn_settings, debug_mode=0):
                     in_game = False
                     game_exit = True
                 board[int(inp[1])][int(inp[0])] = side
-                v.game_window(board)
+                v.game_window(board, 'Opponent turn')
                 result = check_board(board, side)
                 netobj.sendall(encode_data(board))
                 if result != 0:
+                    v.game_window(board, 'Game Over, click anywhere to continue')
                     in_game = False
                 else:
                     in_game = True
                     print('in game', in_game)
+            wait_for_click()
             v.close_game_display()
+            pygame.quit()
             if result == 1:
                 g.set_aftergametext('Draw')
             elif result == 2:
@@ -75,6 +83,8 @@ def main(conn_settings, debug_mode=0):
             elif g.launch == 'mainmenu':
                 in_game = False
                 game_session = False
+
+        netobj.close()
 
 
 def connection_setup(type, ip, port):
@@ -90,7 +100,7 @@ def connection_setup(type, ip, port):
         conn, addr = s.accept()
         if debug == 1:
             print('Accepted connection from', addr)
-        conn.sendall('25000000000'.encode())
+        #conn.sendall('25000000000'.encode())
         side = 'o'
         return conn
     elif type == 1:

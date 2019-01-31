@@ -1,9 +1,9 @@
 import pygame
+import visuals
 
-# import visuals
-
-# a = int(visuals.display_size / 3
-a = 132
+a = int((visuals.display_size - visuals.text_box_size) / 3)
+b = int(visuals.display_size/3)
+# a = 132
 pygame.init()
 
 
@@ -67,9 +67,9 @@ def wait_for_inp(inp_type, board):
                         inp0 = 1
                     else:
                         inp0 = 2
-                    if pos[1] <= a:
+                    if pos[1] <= b:
                         inp1 = 0
-                    elif a < pos[1] <= 2 * a:
+                    elif b < pos[1] <= 2 * b:
                         inp1 = 1
                     else:
                         inp1 = 2
@@ -126,3 +126,11 @@ def check_board(board, side):
     elif '0' not in board[0] and '0' not in board[1] and '0' not in board[2]:
         return 1
     return 0
+
+
+def wait_for_click():
+    done = False
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP:
+                done = True
